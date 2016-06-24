@@ -1,0 +1,347 @@
+/**
+ * @overview 引导游戏
+ *
+ * =============================================================================
+ *  页面名称 guideGame.html
+ * =============================================================================
+ *
+ * @author 李军
+ * @create 2016-6-22
+ *
+ */
+#page-welcome article {
+  height: 100%;
+  background-image: url(../img/home_page.jpg);
+  -webkit-background-size: 100% auto;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-color: #3bfeed;
+}
+#page-welcome .item-area {
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  bottom: 20px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+#page-welcome .item-area a {
+  display: block;
+  width: 70%;
+  line-height: 1.8em;
+  font-size: 16px;
+  margin-bottom: 30px;
+  background-color: #005bac;
+  border-radius: 30px;
+}
+#page-welcome .item-area img {
+  width: 40%;
+}
+
+#page-game {
+  background-color: #7952c9;
+  background-image: url(../img/bg_01.png);
+}
+#page-game #hand {
+  position: fixed;
+  z-index: 150;
+  width: 20%;
+  /*transition: all .1s;*/
+}
+#page-game article {
+  display: flex;
+  display: -webkit-flex;
+  flex-wrap: wrap;
+  align-content: stretch;
+  height: 100%;
+}
+#page-game .header {
+  width: 100%;
+}
+#page-game .header p {
+  font-size: 18px;
+  text-align: center;
+  color: yellow;
+  margin: 12px;
+}
+#page-game .header .main-word {
+  /*font-weight: bold;*/
+  color: white;
+  font-size: 24px;
+  margin-top: 20px;
+}
+
+#page-game .photo-box {
+  margin: 0 auto;
+  width: 90%;
+  height: 66%;
+  background-color: #fff;
+  /*border: 1px solid green;*/
+  box-shadow: 6px 6px 0px rgba(0,0,0,.3);
+  /*background-image: url(../img/bg.png);*/
+  -webkit-background-size: contain;
+  background-size: contain;
+  background-position: center;
+  overflow: hidden;
+  position: relative;
+}
+#page-game footer {
+  align-self: flex-end;
+  width: 100%;
+  height: 60px;
+  margin-bottom: 10px;
+}
+#page-game footer ul {
+  display:         flex;
+  display: -webkit-flex;
+  margin: 0 20%;
+  height: 60px;
+  /*width: 100%;*/
+}
+#page-game footer ul li {
+  width: 25%;
+  height: 100%;
+}
+#page-game footer ul li.active {
+  background-image: url(../img/u22.png);
+}
+#page-game .good-img {
+  background-image: url(../img/u13.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  -webkit-background-size: 50%;
+          background-size: 50%;
+}
+#page-game .mask-box {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  z-index: 100;
+}
+#page-game .mask {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  z-index: 110;
+  background-color: rgba(0,0,0,0.7);
+  /*transition: background-color 1s;*/
+}
+#page-game .mask-box .mask.fade {
+  background-color: rgba(0,0,0,0);
+}
+#page-game .mask-box .success-word-img.fade {
+  opacity: 0;
+}
+#page-game .mask-box .success-word-img {
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  bottom: 45%;
+  height: 6%;
+  position: absolute;
+  z-index: 130;
+  /*transition: opacity 1s;*/
+}
+#page-game .mask-box .big-good-img  {
+  /*width: 200px;*/
+  /*height: 200px;*/
+  /*margin: 150px auto 10px;*/
+  background-image: url(../img/u22.png);
+  position: absolute;
+  z-index: 150;
+  /*left: 50%;*/
+  /*transform: translateX(-50%);*/
+  margin-top: 150px;
+  transition: all 1s;
+}
+#page-game .finish-mask-box {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}
+#page-game .finish-mask-box img {
+  width: 70%;
+  margin: 35% 15% 5%;
+
+  position: relative;
+  z-index: 130;
+
+}
+#page-game .finish-mask-box a {
+  width: 62%;
+  background-color: #eb6100;
+  text-align: center;
+  margin: auto;
+  font-size: 16px;
+  display: block;
+  border-radius: 5px;
+  position: relative;
+  z-index: 130;
+  color: white;
+  line-height: 2.5em;
+}
+
+
+#page-game .movable.item-0 {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  width: 20%;
+  z-index: 80;
+}
+#page-game .movable.item-1 {
+  position: absolute;
+  top: 40px;
+  left: 78%;
+  /*right: 0;*/
+  width: 28%;
+  z-index: 80;
+}
+#page-game img.model,
+#page-game img.model-bg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+}
+#page-game .carousel,
+#page-game .carousel-inner,
+#page-game .carousel-inner .item {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+#page-game .mission-1 .model {
+  z-index: 60;
+}
+#page-game img.model-bg {
+  z-index: 50;
+}
+#page-game .mission-2.model-hair {z-index: 70;}
+#page-game .mission-2.model-hair-action-1 {z-index: 71;}
+#page-game .mission-2.model-hair-action-2 {z-index: 72;}
+#page-game .mission-2.model-correct {z-index: 73;}
+
+#page-game .hair-touch-area {
+  position: absolute;
+  width: 200px;
+  height: 100px;
+  left: 70px;
+  top: 150px;
+  background-color: red;
+  z-index: 80;
+  opacity: 0;
+}
+#page-game .mission-3.item {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 15%;
+  z-index: 70;
+}
+#page-game #hand.tips-0 {
+  -webkit-animation: tips-0 1.5s;
+  animation: tips-0 1.5s;
+  -webkit-animation-iteration-count: 100;
+  animation-iteration-count: 100;
+}
+#page-game #hand.tips-1 {
+  -webkit-animation: tips-1 1.5s;
+  animation: tips-1 1.5s;
+  -webkit-animation-iteration-count: 100;
+  animation-iteration-count: 100;
+}
+#page-game #hand.tips-2 {
+  -webkit-animation: tips-2 1.5s;
+  animation: tips-2 1.5s;
+  -webkit-animation-iteration-count: 100;
+  animation-iteration-count: 100;
+}
+#page-game #hand.tips-3 {
+  -webkit-animation: tips-3 1.5s;
+  animation: tips-3 1.5s;
+  -webkit-animation-iteration-count: 100;
+  animation-iteration-count: 100;
+}
+@keyframes tips-0 {
+  0% {opacity: 0;left: 53px;top: 163px;}
+  1% {opacity: 1;left: 53px;top: 163px;}
+  10% {opacity: 1;left: 53px;top: 163px;}
+  58% {opacity: 1;left: 100px;top: 50px;}
+  79% {opacity: 0;left: 100px;top: 50px;}
+  99% {opacity: 0;left: 53px;top: 163px;}
+  100% {opacity: 0;left: 53px;top: 163px;}
+}
+@-webkit-keyframes tips-0 {
+  0% {opacity: 0;left: 53px;top: 163px;}
+  1% {opacity: 1;left: 53px;top: 163px;}
+  10% {opacity: 1;left: 53px;top: 163px;}
+  58% {opacity: 1;left: 100px;top: 50px;}
+  79% {opacity: 0;left: 100px;top: 50px;}
+  99% {opacity: 0;left: 53px;top: 163px;}
+  100% {opacity: 0;left: 53px;top: 163px;}
+}
+@keyframes tips-1 {
+  0% {opacity: 0;left: 250px;top: 300px;}
+  1% {opacity: 1;left: 250px;top: 300px;}
+  10% {opacity: 1;left: 250px;top: 300px;}
+  58% {opacity: 1;left: 100px;top: 300px;}
+  79% {opacity: 0;left: 100px;top: 300px;}
+  99% {opacity: 0;left: 250px;top: 300px;}
+  100% {opacity: 0;left: 250px;top: 300px;}
+}
+@-webkit-keyframes tips-1 {
+  0% {opacity: 0;left: 250px;top: 300px;}
+  1% {opacity: 1;left: 250px;top: 300px;}
+  10% {opacity: 1;left: 250px;top: 300px;}
+  58% {opacity: 1;left: 100px;top: 300px;}
+  79% {opacity: 0;left: 100px;top: 300px;}
+  99% {opacity: 0;left: 250px;top: 300px;}
+  100% {opacity: 0;left: 250px;top: 300px;}
+}
+@keyframes tips-2 {
+  0% {opacity: 0;left: 140px;top: 270px;}
+  1% {opacity: 1;left: 140px;top: 270px;}
+  10% {opacity: 1;left: 140px;top: 270px;}
+  58% {opacity: 1;left: 60px;top: 265px;}
+  79% {opacity: 0;left: 60px;top: 265px;}
+  99% {opacity: 0;left: 140px;top: 270px;}
+  100% {opacity: 0;left: 140px;top: 270px;}
+}
+@-webkit-keyframes tips-2 {
+  0% {opacity: 0;left: 140px;top: 270px;}
+  1% {opacity: 1;left: 140px;top: 270px;}
+  10% {opacity: 1;left: 140px;top: 270px;}
+  58% {opacity: 1;left: 60px;top: 265px;}
+  79% {opacity: 0;left: 60px;top: 265px;}
+  99% {opacity: 0;left: 140px;top: 270px;}
+  100% {opacity: 0;left: 140px;top: 270px;}
+}
+@keyframes tips-3 {
+  0% {opacity: 0;left: 53px;top: 140px;}
+  1% {opacity: 1;left: 53px;top: 140px;}
+  10% {opacity: 1;left: 53px;top: 140px;}
+  58% {opacity: 1;left: 175px;top: 350px;}
+  79% {opacity: 0;left: 175px;top: 350px;}
+  99% {opacity: 0;left: 53px;top: 140px;}
+  100% {opacity: 0;left: 53px;top: 140px;}
+}
+@-webkit-keyframes tips-3 {
+  0% {opacity: 0;left: 53px;top: 140px;}
+  1% {opacity: 1;left: 53px;top: 140px;}
+  10% {opacity: 1;left: 53px;top: 140px;}
+  58% {opacity: 1;left: 175px;top: 350px;}
+  79% {opacity: 0;left: 175px;top: 350px;}
+  99% {opacity: 0;left: 53px;top: 140px;}
+  100% {opacity: 0;left: 53px;top: 140px;}
+}
+

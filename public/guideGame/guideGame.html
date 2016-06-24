@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+  <title>新手体验</title>
+  <link rel="stylesheet" href="./lib/common.css">
+  <link rel="stylesheet" href="./css/guideGame.css">
+</head>
+<body>
+
+<section class="page active" id="page-welcome">
+  <article>
+    <div class="item-area">
+      <a href="#page-game" class="btn btn-default">get拍摄技能，走起~</a>
+      <img src="./img/logo.png" alt="">
+    </div>
+  </article>
+</section>
+
+<section class="page" id="page-game">
+  <!-- <img src="./img/top.png" alt="" class="top-img hide"> -->
+  <article>
+    <div class="header">
+      <p class="main-word">背景太杂，看不到你啦~</p>
+      <p class="detail-word">你才是主角哦</p>
+    </div>
+
+    <div class="photo-box">
+
+      <!-- HAND -->
+      <img src="./img/u6.png" alt="" id="hand" class="hide">
+
+      <!-- MISSION 0 ITEMS -->
+      <img src="./img/photo_frame_01.png" alt="" class="mission mission-0 item item-0 movable hide">
+      <img src="./img/photo_frame_02.png" alt="" class="mission mission-0 item item-1 movable hide">
+      <img src="./img/model_correct.png" alt="" class="mission mission-0 model model-correct hide">
+
+      <!-- MISSION 1 ITEMS -->
+      <img src="./img/mode_light.png" alt="" class="mission mission-1 model model-light-out hide first-hide">
+      <img src="./img/model_correct.png" alt="" class="mission mission-1 model model-correct  hide first-hide">
+      <div class="carousel mission mission-1 hide" id="carousel">
+        <ol class="carousel-inner">
+          <li class="item active">
+            <img src="./img/light_black.png" alt="" class="model-bg">
+            <img src="./img/mode_light.png" alt="" class="model model-light-in">
+          </li>
+          <li class="item">
+            <img src="./img/light_sun.png" alt="" class="model-bg">
+          </li>
+        </ol>
+        <ol class="carousel-indicators hide">
+          <li class="active" data-index="0"></li>
+          <li data-index="1"></li>
+        </ol>
+      </div>
+
+
+      <!-- MISSION 2 ITEMS -->
+      <div class="mission mission-2 hair-touch-area hide"></div>
+      <img src="./img/model_correct.png" alt="" class="mission mission-2 model model-correct hide first-hide">
+      <img src="./img/model_hair_01.jpg" alt="" class="mission mission-2 model model-hair hide">
+      <img src="./img/model_hair_02.jpg" alt="" class="mission mission-2 model model-hair-action-1 hide first-hide">
+      <img src="./img/model_hair_03.jpg" alt="" class="mission mission-2 model model-hair-action-2 hide first-hide">
+
+      <!-- MISSION 3 ITEMS -->
+      <img src="./img/clothes_icon.png" alt="" class="mission mission-3 item item-0 movable hide">
+      <!-- <img src="./img/photo_frame_02.png" alt="" class="mission mission-3 item item-1 movable hide"> -->
+      <img src="./img/model_correct.png" alt="" class="mission mission-3 model model-correct hide first-hide">
+      <img src="./img/model_clothes.png" alt="" class="mission mission-3 model model-clothes hide">
+
+
+    </div>
+
+    <footer>
+      <ul class="good-list list-unstyled">
+        <li class="good-img"></li>
+        <li class="good-img"></li>
+        <li class="good-img"></li>
+        <li class="good-img"></li>
+      </ul>
+    </footer>
+
+  </article>
+
+  <div class="mask-box hide">
+    <div class="mask"></div>
+    <div class="big-good-img good-img"></div>
+    <img src="" alt="" class="success-word-img">
+  </div>
+
+  <div class="finish-mask-box hide">
+    <img src="./img/finish.png" alt="" class="finish-img">
+    <a href="http://192.168.0.67:3000/guideGame/guideGame.html" class="finish-button">此处应有美照>></a>
+    <div class="mask"></div>
+  </div>
+
+
+</section>
+
+
+<script src="./lib/common.js"></script>
+<script src="./js/config.js"></script>
+<script src="./js/guideGame.js"></script>
+<script src="./js/mission.js"></script>
+</body>
+</html>
