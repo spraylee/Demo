@@ -86,35 +86,59 @@
   function showTips(index) {
     $hand.removeClass("hide");
     $hand.addClass("tips-" + index);
+    $hand[0].dataset.word = window.CONFIG.tipsWord[index];
     // $photoBox.one("touchstart", function(event) {
     //   $hand.removeClass("tips-" + index);
     //   $hand.addClass("hide");
     // });
 
   }
-  function addEventBinding(index) {
+  function addEventBinding(index) {   // 第一关
     if (index === 0) {
 
+      var speedX, speedY;
+      var timeNow, timeLast;
       $photoBox.find(".mission-0.item").on("touchstart", function(event) {
         $hand.removeClass("tips-" + index);
         $hand.addClass("hide");
+        $(this).removeClass("inertial");   // 惯性
         // console.log("start");
         _posFrom.x = event.changedTouches[0].pageX;
         _posFrom.y = event.changedTouches[0].pageY;
         _leftFrom  = getStyleNum(this, "left");
         _topFrom   = getStyleNum(this, "top");
+        timeNow = new Date().getTime();
+
       });
       $photoBox.find(".mission-0.item").on("touchmove", function(event) {
         this.style.left = _leftFrom + event.changedTouches[0].pageX - _posFrom.x + "px";
         this.style.top = _topFrom + event.changedTouches[0].pageY - _posFrom.y + "px";
+
+        timeLast = timeNow;
+        timeNow = new Date().getTime();
+
+        speedX = (event.changedTouches[0].pageX - _posFrom.x) / (timeNow - timeLast);
+        speedY = (event.changedTouches[0].pageY - _posFrom.y) / (timeNow - timeLast);
+        // console.log("speedX: " + speedX + ",  speedY: " + speedY);
       });
       $photoBox.find(".mission-0.item").on("touchend", function(event) {
+
         if (checkAllOut()) {
           $(window).trigger("successAndNext", [index + 1]);
+        } else {
+          $(this).addClass("inertial");
+          this.style.left = getStyleNum(this, "left") + speedX * 15 + "px";
+          this.style.top = getStyleNum(this, "top") + speedY * 15 + "px";
+          setTimeout(function() {
+            $(this).removeClass("inertial");
+            if (checkAllOut()) {
+              $(window).trigger("successAndNext", [index + 1]);
+            }
+          }, 500);
         }
       });
 
-    } else if (index === 1) {
+    } else if (index === 1) {     // 第二关
       var state = "canMove";
       $carousel.on("touchstart", function() {
         $carousel.find(".model-light-in").addClass("hide");
@@ -142,8 +166,9 @@
           }, 334);
         }
       });
-    } else if (index === 2) {
+    } else if (index === 2) {     // 第三关
       var gapX, gapY;
+      var success = false;
       $hairTouchArea.on("touchstart", function(event) {
         $hand.removeClass("tips-" + index);
         $hand.addClass("hide");
@@ -153,7 +178,8 @@
       $hairTouchArea.on("touchend", function(event) {
         gapX = event.changedTouches[0].pageX - _posFrom.x;
         gapY = event.changedTouches[0].pageY - _posFrom.y;
-        if (gapX * gapX + gapY * gapY > 1600) {
+        if (gapX * gapX + gapY * gapY > 1600 && !success) {
+          success = true;
           $photoBox.find(".model-hair").addClass("hide");
           $photoBox.find(".model-hair-action-1").removeClass("hide");
           setTimeout(function() {
@@ -169,7 +195,7 @@
           }, 2000);
         }
       });
-    } else if (index === 3) {
+    } else if (index === 3) {    //  第四关
       $photoBox.find(".mission-3.item").on("touchstart", function(event) {
         $hand.removeClass("tips-" + index);
         $hand.addClass("hide");
