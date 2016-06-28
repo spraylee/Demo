@@ -5,7 +5,19 @@
   <title>Document</title>
 </head>
 <body>
-  <table id="table" border="1">
+  <table id="datalist" border="1">
+    <tr>
+      <td>sfasfasdf1</td>
+      <td>2fadfasdf</td>
+      <td>3fadfsdf</td>
+      <td>fadfasdf</td>
+    </tr>
+    <tr>
+      <td>sfasfasdf1</td>
+      <td>2fadfasdf</td>
+      <td>3fadfsdf</td>
+      <td>fadfasdf</td>
+    </tr>
     <tr>
       <td>1</td>
       <td>2</td>
@@ -34,52 +46,84 @@
 
 
   <script>
+
+  // 执行该函数（跳过前两行）
+  autoRowSpan(datalist, 2, 0);
+
   function autoRowSpan(datalist, row, col) {
-    var lastValue = "";
-    var value = "";
-    var pos = 1;
-    var score = [];
-    var num = 0;
-    var theScore;
+    var lastValue = "";    // 上个格子的值
+    var value = "";        // 当前格子的值
+    var pos = 1;           // 该数据有多少个连续相同值(格子的高度)
+    var score = [];        // 左边格子对应值和占据行数的对象数组
+    var num = 0;           // 第几个不同数据
+    var theScore;          // 左边数据对应的值（得分）
     for (var i = row; i < datalist.rows.length; i++) {
+      // 从第row+1行开始，遍历每行第col+1个格子（其实最后是从第3行开始，看第一个格子, 所以对应row=2，col=1）
+      // 数组里的第num个对象要是没有初始化，就初始化一个空对象
       if (!score[num]) {
         score[num] = {};
       }
+      // 当前格子的值
       value = datalist.rows[i].cells[col].innerText;
+      // 当前格子右边对应的得分（可能是空的）
       theScore = datalist.rows[i].cells[3].innerText;
       if (theScore != "") {
+        // 不为空的时候，才对对象进行赋值
         score[num].score = theScore;
       }
+      // 当这个格子与上个格子值一样时
       if (lastValue == value) {
+        // 删除这个格子
         datalist.rows[i].deleteCell(col);
+        // 上个格子的高度加一
         datalist.rows[i - pos].cells[col].rowSpan = datalist.rows[i - pos].cells[col].rowSpan + 1;
+        // 纪录这个高度的值
         pos++;
+        // 对应，对象数组的相应数据(后面得分要占据的高度)也加一
         score[num].dataLength += 1;
       } else {
+        // 和上次不相等（出现新的值时）
+        // 上次的数据改为当前数据
         lastValue = value;
+        // 数据高度归再次从一开始算
         pos = 1;
+        // 不同的数据个数加一
         num += 1;
+        // 新创建一个对象，纪录新的占据高度和对应的值
         score[num] = {};
+        // 初始化占据高度为1
         score[num].dataLength = 1;
+        // 默认为零
+        score[num].score = "0";
       }
     }
-    console.dir(score);
-    var rowsPos = 1;
+    // 到现在，得到一个纪录对应值和占据高度的对象数组，可以开始处理第三列的得分数据了
+
+    // 跳过一开始的了两行标题（row = 2）
+    // 这个值是当前的行数
+    var rowsPos = -1 + row;
+    // 遍历数组，其实就是分别看每一个值，看它占据的高度，对应的得分数据
     for (var i = 1; i < score.length; i++) {
+      // 遍历这个高度，即用来遍历每个得分的格子
       for (var j = 0; j < score[i].dataLength; j++) {
+        // 当前的行数
         rowsPos += 1;
+        // 如果是该数的第一行
         if (j === 0) {
-          console.dir(datalist.rows[i]);
+          // 对该行填值
           datalist.rows[rowsPos].cells[3].innerText = score[i].score;
+          // 设定好它的高度
           datalist.rows[rowsPos].cells[3].rowSpan = score[i].dataLength;
         } else {
+          // 其余行，就直接删除
           datalist.rows[rowsPos].deleteCell(2);
         }
       }
     }
 
   }
-  autoRowSpan(table, 0, 0);
+
+
   </script>
 </body>
 </html>
