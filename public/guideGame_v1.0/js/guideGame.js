@@ -49,8 +49,6 @@
 
   $page.on("open", function() {
     $(window).trigger("loadMission", [_goodProgress]);
-    RENDER_missionInfo(_goodProgress);
-    RENDER_goodProgress(_goodProgress);
   });
 
 
@@ -75,25 +73,29 @@
 
 
   function successAndNext(toIndex) {
-    RENDER_showSuccess(toIndex);
+    RENDER_showALl();
+    RENDER_successWordImg(toIndex);
 
     setTimeout(function() {
-      RENDER_fadeWordAndMoveImg(toIndex);
-    }, 1500);
-
-    setTimeout(function() {
-      RENDER_hideSuccess();
-      RENDER_goodProgress(_goodProgress + 1);
+      RENDER_moveGoodImg(toIndex);
+      RENDER_fadeWordAndMask();
       if (_goodProgress < 3) {
-        _goodProgress += 1;
         RENDER_missionInfo(toIndex);
+      }
+    }, 1000);
+
+    setTimeout(function() {
+      RENDER_hideAll();
+      _goodProgress += 1;
+      RENDER_goodProgress(_goodProgress);
+      if (_goodProgress < 4) {
         $(window).trigger("loadMission", [toIndex]);
         _state = "ready";
       } else {
         _state = "finish";
         RENDER_showFinishImg();
       }
-    }, 2500);
+    }, 2000);
   }
 
 
@@ -102,28 +104,31 @@
    *  Content Render
    * ---------------------------------------------------------------------------
    */
-  function RENDER_showSuccess(toIndex) {
+  function RENDER_showALl() {
     $maskBox.removeClass("hide");
     $bigGoodImg[0].style.width  = 160 + "px";
     $bigGoodImg[0].style.height = 160 + "px";
     $bigGoodImg[0].style.left   = _deviceWidth * 0.5 - 80 + "px";
     $bigGoodImg[0].style.bottom = 50 + "%";
+  }
+  function RENDER_successWordImg(toIndex) {
     $successWordImg[0].src = window.CONFIG.successWordImg[toIndex -1];
   }
 
-  function RENDER_fadeWordAndMoveImg(toIndex) {
+  function RENDER_moveGoodImg(toIndex) {
+
     $bigGoodImg[0].style.width  = _deviceWidth * 0.15 + "px";
     $bigGoodImg[0].style.height = 60 + "px";
     $bigGoodImg[0].style.left   = _deviceWidth * (0.15 * (toIndex - 1) + 0.2) + "px";
     $bigGoodImg[0].style.bottom = 10 + "px";
+  }
+  function RENDER_fadeWordAndMask() {
     $mask.addClass("fade");
     $successWordImg.addClass("fade");
   }
-
-  function RENDER_hideSuccess() {
+  function RENDER_hideAll() {
     $mask.removeClass("fade");
     $successWordImg.removeClass("fade");
-    // 大拇指图片隐藏后，大小位置复原
     $bigGoodImg[0].style.width  = 160 + "px";
     $bigGoodImg[0].style.height = 160 + "px";
     $bigGoodImg[0].style.left   = _deviceWidth * 0.5 - 80 + "px";

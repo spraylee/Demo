@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <table id="table" border="1">
+    <tr>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>3</td>
+      <td>4</td>
+      <td>0</td>
+    </tr>
+  </table>
+
+
+  <script>
+  function autoRowSpan(datalist, row, col) {
+    var lastValue = "";
+    var value = "";
+    var pos = 1;
+    var score = [];
+    var num = 0;
+    var theScore;
+    for (var i = row; i < datalist.rows.length; i++) {
+      if (!score[num]) {
+        score[num] = {};
+      }
+      value = datalist.rows[i].cells[col].innerText;
+      theScore = datalist.rows[i].cells[3].innerText;
+      if (theScore != "") {
+        score[num].score = theScore;
+      }
+      if (lastValue == value) {
+        datalist.rows[i].deleteCell(col);
+        datalist.rows[i - pos].cells[col].rowSpan = datalist.rows[i - pos].cells[col].rowSpan + 1;
+        pos++;
+        score[num].dataLength += 1;
+      } else {
+        lastValue = value;
+        pos = 1;
+        num += 1;
+        score[num] = {};
+        score[num].dataLength = 1;
+      }
+    }
+    console.dir(score);
+    var rowsPos = 1;
+    for (var i = 1; i < score.length; i++) {
+      for (var j = 0; j < score[i].dataLength; j++) {
+        rowsPos += 1;
+        if (j === 0) {
+          console.dir(datalist.rows[i]);
+          datalist.rows[rowsPos].cells[3].innerText = score[i].score;
+          datalist.rows[rowsPos].cells[3].rowSpan = score[i].dataLength;
+        } else {
+          datalist.rows[rowsPos].deleteCell(2);
+        }
+      }
+    }
+
+  }
+  autoRowSpan(table, 0, 0);
+  </script>
+</body>
+</html>

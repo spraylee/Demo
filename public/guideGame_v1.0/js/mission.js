@@ -84,76 +84,103 @@
   }
 
   function showTips(index) {
-    $hand.addClass("tips-" + index);
     $hand.removeClass("hide");
+    $hand.addClass("tips-" + index);
     $hand[0].dataset.word = window.CONFIG.tipsWord[index];
-
-
     // $photoBox.one("touchstart", function(event) {
-    //
+    //   $hand.removeClass("tips-" + index);
     //   $hand.addClass("hide");
     // });
 
   }
   function addEventBinding(index) {   // 第一关
     if (index === 0) {
-      var success = false;
-      // 调用第三方插件 interact, 提供相框惯性滑动效果
-      interact('.mission-0.item')           // target the matches of that selector
-        .draggable({                        // make the element fire drag events
-          max: Infinity,                    // allow drags on multiple elements
-          inertia: true,                    // 惯性
-          onmove: function(event) {
-            // 去掉手势提示
-            $hand.addClass("hide");
-            event.target.style.left = getStyleNum(event.target, "left") + event.dx + "px";
-            event.target.style.top = getStyleNum(event.target, "top") + event.dy + "px";
-          },
-          onend: function(event) {
-            if (checkAllOut() && !success) {
-              success = true;
+
+      // interact();
+
+      var speedX, speedY;
+      var timeNow, timeLast;
+      $photoBox.find(".mission-0.item").on("touchstart", function(event) {
+        $hand.removeClass("tips-" + index);
+        $hand.addClass("hide");
+        $(this).removeClass("inertial");   // 惯性
+        // console.log("start");
+        _posFrom.x = event.changedTouches[0].pageX;
+        _posFrom.y = event.changedTouches[0].pageY;
+        _leftFrom  = getStyleNum(this, "left");
+        _topFrom   = getStyleNum(this, "top");
+        timeNow = new Date().getTime();
+
+      });
+      $photoBox.find(".mission-0.item").on("touchmove", function(event) {
+        this.style.left = _leftFrom + event.changedTouches[0].pageX - _posFrom.x + "px";
+        this.style.top = _topFrom + event.changedTouches[0].pageY - _posFrom.y + "px";
+
+        timeLast = timeNow;
+        timeNow = new Date().getTime();
+
+        speedX = (event.changedTouches[0].pageX - _posFrom.x) / (timeNow - timeLast);
+        speedY = (event.changedTouches[0].pageY - _posFrom.y) / (timeNow - timeLast);
+        // console.log("speedX: " + speedX + ",  speedY: " + speedY);
+      });
+      $photoBox.find(".mission-0.item").on("touchend", function(event) {
+
+        if (checkAllOut()) {
+          $(window).trigger("successAndNext", [index + 1]);
+        } else {
+          $(this).addClass("inertial");
+          this.style.left = getStyleNum(this, "left") + speedX * 15 + "px";
+          this.style.top = getStyleNum(this, "top") + speedY * 15 + "px";
+          setTimeout(function() {
+            $(this).removeClass("inertial");
+            if (checkAllOut()) {
               $(window).trigger("successAndNext", [index + 1]);
             }
-          }
-        })
+          }, 500);
+        }
+      });
 
     } else if (index === 1) {     // 第二关
-      // var state = "canMove";
-
+      var state = "canMove";
+      $carousel.on("touchstart", function() {
+        $carousel.find(".model-light-in").addClass("hide");
+        $photoBox.find(".model-light-out").removeClass("hide");
+        $hand.removeClass("tips-" + index);
+        $hand.addClass("hide");
+      });
       $carousel.on("touchend", function() {
-        // 延时验证是否切换背景
-        setTimeout(function() {
-          if ($carousel.find(".carousel-indicators li").eq(1).hasClass("active")) {
-            // 去掉手势提示
-            $hand.addClass("hide");
-            // 禁止再滑动回去
-            $carousel[0].style.pointerEvents = "none";
-            // 等待动画结束
-            setTimeout(function() {
-              // 出现正确人物图片
+        // $hand.removeClass("tips-" + index);
+        // $hand.addClass("hide");
+        if (state === "canMove") {
+          setTimeout(function() {
+            if ($carousel.find(".carousel-indicators li").eq(1).hasClass("active")) {
               $photoBox.find(".model-correct").removeClass("hide");
-            }, 400);
-            // 触发下一关
-            setTimeout(function() {
-              $(window).trigger("successAndNext", [index + 1]);
-            }, 1400);
-          }
-        }, 10);
+              state = "cannotMove";
+              setTimeout(function() {
+                $(window).trigger("successAndNext", [index + 1]);
+              }, 1000);
+            } else {
+              setTimeout(function() {
+                $carousel.find(".model-light-in").removeClass("hide");
+                $photoBox.find(".model-light-out").addClass("hide");
+              }, 334);
+            }
+          }, 334);
+        }
       });
     } else if (index === 2) {     // 第三关
-      var MinDistance = 40;   // 最小触发距离
-      var gapX, gapY;         // 各个方向上移动距离
-      var success = false;    // 是否已经移动成功（避免多次触发下一关）
+      var gapX, gapY;
+      var success = false;
       $hairTouchArea.on("touchstart", function(event) {
+        $hand.removeClass("tips-" + index);
+        $hand.addClass("hide");
         _posFrom.x = event.changedTouches[0].pageX;
         _posFrom.y = event.changedTouches[0].pageY;
       });
       $hairTouchArea.on("touchend", function(event) {
         gapX = event.changedTouches[0].pageX - _posFrom.x;
         gapY = event.changedTouches[0].pageY - _posFrom.y;
-        if (gapX * gapX + gapY * gapY > MinDistance * MinDistance && !success) {
-          // 去掉手势提示
-          $hand.addClass("hide");
+        if (gapX * gapX + gapY * gapY > 1600 && !success) {
           success = true;
           $photoBox.find(".model-hair").addClass("hide");
           $photoBox.find(".model-hair-action-1").removeClass("hide");
@@ -172,7 +199,7 @@
       });
     } else if (index === 3) {    //  第四关
       $photoBox.find(".mission-3.item").on("touchstart", function(event) {
-        // 去掉手势提醒
+        $hand.removeClass("tips-" + index);
         $hand.addClass("hide");
         _posFrom.x = event.changedTouches[0].pageX;
         _posFrom.y = event.changedTouches[0].pageY;
@@ -188,7 +215,6 @@
         var stageHeight = getStyleNum($photoBox[0], "height");
         _leftFrom  = getStyleNum(this, "left");
         _topFrom   = getStyleNum(this, "top");
-        // 衣服验证区域
         if (_leftFrom > stageWidth / 2 - 100 && _leftFrom < stageWidth / 2 + 100 && _topFrom > stageHeight - 250 && _topFrom < stageHeight) {
           $photoBox.find(".model-clothes").addClass("hide");
           $photoBox.find(".model-correct").removeClass("hide");
@@ -203,7 +229,7 @@
       });
     }
   }
-  // 判断是否所有图片都移动到了框外（第一关）
+
   function checkAllOut() {
     var stageWidth = getStyleNum($photoBox[0], "width");
     var stageHeight = getStyleNum($photoBox[0], "height");
@@ -221,7 +247,21 @@
     return allOut;
   }
 
-  // 获取元素的属性值（宽高、上下左右位置）
+  /**
+   * ---------------------------------------------------------------------------
+   *  Content Render
+   * ---------------------------------------------------------------------------
+   */
+
+
+
+
+  /**
+   * ---------------------------------------------------------------------------
+   *  External API
+   * ---------------------------------------------------------------------------
+   */
+  window.getStyleNum = getStyleNum;
   function getStyleNum(obj, styleName) {
     var str = getStyle(obj, styleName);
     return Number(str.split("px")[0]);
@@ -233,9 +273,6 @@
       return getComputedStyle(obj, null)[styleName];
     }
   }
-
-
-
 
 
 })(window, document, $);
