@@ -1,0 +1,8 @@
+#page-index article {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#page-index button {
+  width: 100%;
+}
