@@ -35,7 +35,7 @@
    * ---------------------------------------------------------------------------
    */
   if (navigator.geolocation) {
-    alert(' 你的浏览器支持 geolocation ');
+    // alert(' 你的浏览器支持 geolocation ');
   } else {
     alert(' 你的浏览器不支持 geolocation ');
   }
