@@ -45,6 +45,11 @@
    */
   $page.on("open", HANDLER_initPage);
 
+  $page.on("click", function(event) {
+    var randomAngel = [Math.floor(Math.random()*2), Math.floor(Math.random()*2), Math.floor(Math.random()*2), Math.floor(Math.random()*720)].join(", ");
+    $cube[0].style.transform = "rotate3d("+ randomAngel +"deg)";
+  });
+
 
 
   /**
@@ -62,7 +67,6 @@
       item.style.backgroundColor = "black";
     });
     _color.forEach(function(color, index) {
-      console.log(index);
       $cube.find(".cell-face-" + index).find(".cell-inner").forEach(function(item) {
         item.style.backgroundColor = color;
       });
