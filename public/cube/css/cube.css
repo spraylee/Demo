@@ -1,0 +1,75 @@
+#page-main article {
+  display: flex;
+  flex-wrap: wrap;
+}
+#page-main article > * {
+  width: 100%;
+  text-align: center;
+  flex-grow: 0;
+}
+#page-main #main-box {
+  flex-grow: 1;
+  height: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#page-main #cube {
+  transform-style: preserve-3d;
+  transform: rotate3d(1, 0, 1, 20deg);
+  width: 0;
+  height: 0;
+
+}
+#page-main .cell {
+  position: absolute;
+}
+
+
+#page-main .cell-face {
+  background-color: yellow;
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+}
+#page-main .cell {
+  transform: rotate3d(1,0,1,45deg);
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  display: block;
+  transform-style: preserve-3d;
+  position: relative;
+}
+/*#page-main .cell-face-0 {
+  transform: translate3d(0, -50px, 0) rotate3d(0, 1, 0, 90deg);
+}
+#page-main .cell-face-1 {
+  transform: translate3d(-100px, -50px, 0) rotate3d(0, 1, 0, -90deg);
+}
+#page-main .cell-face-2 {
+  transform: translate3d(-50px, 0, 0) rotate3d(1, 0, 0, 90deg);
+}
+#page-main .cell-face-3 {
+  transform: translate3d(-50px, -100px, 0) rotate3d(1, 0, 0, -90deg);
+}
+#page-main .cell-face-4 {
+  transform: translate3d(-50px, -50px, 50px) rotate3d(0, 0, 1, 90deg);
+}
+#page-main .cell-face-5 {
+  transform: translate3d(-50px, -50px, -50px) rotate3d(0, 0, 1, -90deg);
+}*/
+
+#page-main .cell-inner {
+  width: 92%;
+  height: 92%;
+  display: block;
+  border: 5% solid transparent;
+  border-radius: 8%;
+}

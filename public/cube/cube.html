@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+  <title>TEST</title>
+  <link rel="stylesheet" href="./lib/common.css">
+  <link rel="stylesheet" href="./css/cube.css">
+</head>
+<body>
+
+<section class="page" id="page-welcome">
+  <article></article>
+</section>
+
+<section class="page active" id="page-main">
+  <article>
+    <header>主页面</header>
+    <div id="main-box">
+      <ul class="cube list-unstyled" id="cube"></ul>
+      <script id="tmp-cube" type="text/html" data-container="#cube">
+        {{ for(var i = 0;i < it;i ++) { }}
+          <li class="cell cell-{{=i}}">
+            {{ for(var j = 0;j < 6;j ++) { }}
+              <span class="cell-face cell-face-{{=j}}"><span class="cell-inner"></span></span>
+            {{ } }}
+          </li>
+        {{ } }}
+      </script>
+    </div>
+    <footer></footer>
+  </article>
+</section>
+
+<section class="page" id="page-about">
+  <article></article>
+</section>
+
+
+
+<script src="./lib/interact.js"></script>
+<script src="./lib/common.js"></script>
+<!-- <script src="./js/config.js"></script> -->
+<script src="./js/cube.js"></script>
+<!-- <script src="./js/mission.js"></script> -->
+
+</body>
+</html>
