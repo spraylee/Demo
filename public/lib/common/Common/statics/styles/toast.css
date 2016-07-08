@@ -1,0 +1,37 @@
+/**
+ * =============================================================================
+ *  Toast 信息框
+ * =============================================================================
+ * Came from WeUI
+ *
+ * @author 董经伟
+ * @create 2016-05-10
+ *
+ */
+.toast {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 3001;
+  width: 120px;
+  padding: 20px 5px;
+  background-color: rgba(40, 40, 40, 0.75);
+  border-radius: 5px;
+  color: #fff;
+  text-align: center;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+  .toast-icon {
+    display: block;
+    margin-top: -10px;
+  }
+    .toast-icon:before {
+      content: "\EA08";
+      color: #FFFFFF;
+      font-size: 55px;
+      font-family: "weui";
+    }
+  .toast-content {
+    font-size: 16px;
+  }

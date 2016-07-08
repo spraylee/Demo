@@ -1,0 +1,48 @@
+/**
+ * 商品数量
+ * -----------------------------------------------------------------------------
+ */
+.amount-box {
+  letter-spacing: -1em;
+  white-space: nowrap;
+}
+  .amount-box button,
+  .amount-box input {
+    display: inline-block;
+    width: 40px;
+    height: 33px;
+    margin: 0 -1px;
+    letter-spacing: 0;
+    border: 1px solid #ddd;
+    border-radius: 0;
+    vertical-align: middle;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+  }
+  .amount-box button {
+    padding: 0;
+    background-color: #fff;
+    color: #4384d5;
+    font-size: 14px;
+    line-height: 0;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+         -o-user-select: none;
+            user-select: none;
+  }
+    .amount-box button:hover {
+      background-color: #00c2ff;
+      border-color: #00c2ff;
+      color: #fff;
+    }
+  .amount-box input {
+    outline: none;
+    text-align: center;
+    pointer-events: none;
+  }

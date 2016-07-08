@@ -1,0 +1,75 @@
+/**
+ * @overview CSS 工具库
+ *
+ * =============================================================================
+ *  通用自定义组件样式
+ * =============================================================================
+ *
+ * @author 董经伟
+ * @create 2014-08-22
+ *
+ * @update 2015-01-30 董经伟
+ * @update 2015-03-24 董经伟
+ *   1.解决 CSS 页面白边与卡顿的 Bug，主要原因是 .page 设置了 absoulte 和 动态内容
+ * @update 2015-04-20 董经伟
+ *   1.重构 .list-form
+ * @update 2015-07-13 董经伟
+ *   1.分离组件
+ *
+ */
+
+
+/**
+ * 按页面类型 显示/隐藏 页面内容
+ * -----------------------------------------------------------------------------
+ */
+.show-at-modal-type-3,
+.show-at-modal-type-2,
+.show-at-modal-type-1,
+.page .show-at-page-type-5,
+.page .show-at-page-type-4,
+.page .show-at-page-type-3,
+.page .show-at-page-type-2,
+.page .show-at-page-type-1 { display: none; }
+.modal-type-3 .show-at-modal-type-3,
+.modal-type-2 .show-at-modal-type-2,
+.modal-type-1 .show-at-modal-type-1,
+.page-type-5 .show-at-page-type-5,
+.page-type-4 .show-at-page-type-4,
+.page-type-3 .show-at-page-type-3,
+.page-type-2 .show-at-page-type-2,
+.page-type-1 .show-at-page-type-1 { display: block; }
+.modal-type-2 .show-at-modal-type-2.inline-block,
+.modal-type-1 .show-at-modal-type-1.inline-block,
+.page-type-5 .show-at-page-type-5.inline-block,
+.page-type-4 .show-at-page-type-4.inline-block,
+.page-type-3 .show-at-page-type-3.inline-block,
+.page-type-2 .show-at-page-type-2.inline-block,
+.page-type-1 .show-at-page-type-1.inline-block { display: inline-block; }
+
+
+
+
+
+
+
+/**
+ * 其他
+ * -----------------------------------------------------------------------------
+ */
+
+/* 价格 */
+.price {
+  color: #fa634e;
+  font-weight: bold;
+}
+
+/* 验证码 */
+.label-1,
+.label-2 {
+  pointer-events: none;
+}
+.label-2,
+button[disabled] > .label-1 { display: none; }
+button[disabled] > .label-2 { display: inline; }
+
