@@ -9,12 +9,14 @@
 <a href="http://192.168.0.67:3000/audio/audio.html">刷新</a>
 
 
-<audio src="./sound/camera-shutter.mp3">
-您的浏览器不支持 audio 标签。
-</audio>
+      <!-- BGM -->
+      <audio class="hide" id="game-bgm" loop>
+         <source src="__SOUND__/game-bgm-new.mp3" type="audio/mpeg">
+      </audio>
 
 <script>
-
+var bgm = document.getElementById('game-bgm');
+bgm.play();
 
 </script>
 

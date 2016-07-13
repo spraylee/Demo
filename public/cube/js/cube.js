@@ -62,15 +62,6 @@
     // Create Cells
     RENDER_createCells();
 
-    // Init Color
-    $cube.find(".cell-face").forEach(function(item) {
-      item.style.backgroundColor = "black";
-    });
-    _color.forEach(function(color, index) {
-      $cube.find(".cell-face-" + index).find(".cell-inner").forEach(function(item) {
-        item.style.backgroundColor = color;
-      });
-    });
 
     // Init CellFace Size And Position
     $cube.find(".cell-face").forEach(function(item) {
@@ -98,14 +89,14 @@
     });
 
     // Init Colors
-    $cube.find(".cell-face").forEach(function(item) {
-      item.style.backgroundColor = "black";
-    });
-    _color.forEach(function(color, index) {
-      $cube.find(".cell-face-" + index).find(".cell-inner").forEach(function(item) {
-        item.style.backgroundColor = color;
-      });
-    });
+    // $cube.find(".cell-face").forEach(function(item) {
+    //   item.style.backgroundColor = "black";
+    // });
+    // _color.forEach(function(color, index) {
+    //   $cube.find(".cell-face-" + index).find(".cell-inner").forEach(function(item) {
+    //     item.style.backgroundColor = color;
+    //   });
+    // });
 
     // Init Cell Postion
     for (var i = 0; i < 27 ; i++) {
@@ -149,3 +140,4 @@
 
 
 })(window, document, $);
+
