@@ -11,4 +11,44 @@
  */
 
 
+#page-main {
+  background-color: #fff;
+}
+#page-main .logo,
+#page-main .logo-title {
+  top: 30%;
+  left: 50%;
+  position: absolute;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+#page-main .logo-title {
+  top: 45%;
+  width: 30%;
+}
+#page-main .loadingProgress {
+  top: 70%;
+  left: 50%;
+  position: absolute;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+#page-main .hand {
+  position: absolute;
+  width: 20%;
+}
 
+#page-main .hand-0 {
+  left: 120%;
+  top: 70%;
+}
+#page-main .hand-0.move-center {
+  transition: 1s left, 1s top;
+  left: 50%;
+  top: 40%;
+}
+
+#page-main .mask-0 {
+  background-color: #005bac;
+  position:
+}
