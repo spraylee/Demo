@@ -24,11 +24,11 @@
    * ---------------------------------------------------------------------------
    */
 
-
+  var dpr = 3;
   window._VAR = {
-    w: window.innerWidth,
-    h: window.innerHeight,
-    PFS: 10
+    w: window.innerWidth * dpr,
+    h: window.innerHeight * dpr,
+    PFS: 60
   }
 
   window._IMG = {};
@@ -101,11 +101,17 @@
 
   /**
    * ---------------------------------------------------------------------------
-   *  Business Logic
+   *  Util Funtion  // 提供自定义的全局方法
    * ---------------------------------------------------------------------------
    */
-
-
+  // 调整createjs图像元素的大小（W的倍数），及圆点放到中心
+  window.adjustSize = function (obj, width) {
+    var bounds = obj.getBounds();
+    obj.regX = bounds.width / 2;
+    obj.regY = bounds.height / 2;
+    obj.scaleX = width / bounds.width;
+    obj.scaleY = obj.scaleX;
+  }
 
   /**
    * ---------------------------------------------------------------------------

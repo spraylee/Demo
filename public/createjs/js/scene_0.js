@@ -60,69 +60,74 @@
       var logo = new createjs.Bitmap(IMG.logo);
       container.addChild(logo);
 
-      var w = logo.getBounds().width;
-      var h = logo.getBounds().height;
+      adjustSize(logo, 0.35 * W);
 
-      logo.x = W - w >> 1;
-      logo.y = h * -0.5 + H * 0.35;
+      logo.x = W / 2;
+      logo.y = H * 0.3;
 
       logo.alpha = 0;
-      Tween.get(logo).to({alpha:1}, 400).call(showLeftWord);
+      Tween.get(logo).to({alpha:1}, 400).call(showWord);
     }
 
 
-    // 出现左边的文字
-    function showLeftWord() {
-      var leftWord = new createjs.Text(TEXT.leftWord, "bold 24px Heiti", "blue");
-      container.addChild(leftWord);
-      leftWord.textAlign = "center";
-      leftWord.x = - W;
-      leftWord.y = H * 0.65;
-      Tween.get(leftWord).to({x: W * 0.4, y: H*0.6}, 1000, Ease.getBackIn(8.5));
-      Tween.get(leftWord).wait(300).call(showRightWord);
+    // 出现下边的文字
+    function showWord() {
+      var word = new createjs.Bitmap(IMG.adText);
+      container.addChild(word);
+      adjustSize(word, 0.7 * W);
+      word.x = 0.5 * W;
+      word.y = H * 0.58;
+      word.alpha = 0;
+      Tween.get(word).to({y: H*0.55, alpha: 1}, 1000, Ease.cubicOut);
+      Tween.get(word).wait(300).call(showLine);
     }
 
-    // 出现右边的文字
-    function showRightWord() {
-      var rightWord = new createjs.Text(TEXT.rightWord, "bold 24px Heiti", "blue");
-      container.addChild(rightWord);
-      rightWord.textAlign = "center";
-      rightWord.x = 2*W;
-      rightWord.y = 0.7*H;
-      Tween.get(rightWord).to({x:W * 0.6,y:H*0.68}, 1000, Ease.getBackIn(8.5)).wait(500).call(moveHand);
+    // 线出现的动画
+    function showLine() {
+      var line = new createjs.Bitmap(IMG.line);;
+      container.addChild(line);
+      adjustSize(line, 0.7 * W);
+      line.x = W / 2;
+      line.y = H * 0.6;
+
+      var mask_graphics = new createjs.Graphics().beginFill("red").drawRect(0,0,W,H);
+      var mask = new createjs.Shape(mask_graphics);
+      mask.scaleX = 0;
+      line.mask = mask;
+      Tween.get(mask).to({scaleX: 1}, 600, Ease.linear).wait(500).call(moveHand);
     }
 
     // 点击动画
     function moveHand() {
       var hand = new createjs.Bitmap(IMG.hand);
       container.addChild(hand);
-      hand.x = W * 1;
+      adjustSize(hand, 0.2 * W);
+      hand.x = W * 1.2;
       hand.y = H * 0.8;
-      hand.setTransform(hand.x,hand.y,0.3,0.3);
-      Tween.get(hand).to({x:W*0.5, y:H*0.35}, 1200, Ease.quadInOut).wait(200).call(showMask);
+      Tween.get(hand).to({x:W*0.6, y:H*0.35}, 1200, Ease.cubicOut).wait(200).call(showMask);
     }
 
-    // 转场遮罩出现
-    function showMask() {
-      var container_mask = new createjs.Container();
-      window._VAR.container_mask_0 = container_mask;        // 将遮罩容器添加到全局，方便后面删除
-      stage.addChild(container_mask);
-      var mask = new createjs.Bitmap(IMG.blueCircle);
-      container_mask.addChild(mask);
-      var bounds = mask.getBounds();
-      mask.regX = bounds.width/2;
-      mask.regY = bounds.height/2;
-      mask.x = W/2;
-      mask.y = H*0.35;
-      mask.scaleX = 0;
-      mask.scaleY = 0;
-      Tween.get(mask).to({scaleX: 10,scaleY: 10}, 2000, Ease.quintOut);
-      Tween.get(mask).wait(1000).to({alpha: 0.7}, 2400, Ease.quintOut);
-      Tween.get(container).wait(1000).call(function() {
-        stage.removeChild(container);
-        $(window).trigger("showScene_0_over");
-      });
-    }
+    // // 转场遮罩出现
+    // function showMask() {
+    //   var container_mask = new createjs.Container();
+    //   window._VAR.container_mask_0 = container_mask;        // 将遮罩容器添加到全局，方便后面删除
+    //   stage.addChild(container_mask);
+    //   var mask = new createjs.Bitmap(IMG.blueCircle);
+    //   container_mask.addChild(mask);
+    //   var bounds = mask.getBounds();
+    //   mask.regX = bounds.width/2;
+    //   mask.regY = bounds.height/2;
+    //   mask.x = W/2;
+    //   mask.y = H*0.35;
+    //   mask.scaleX = 0;
+    //   mask.scaleY = 0;
+    //   Tween.get(mask).to({scaleX: 10,scaleY: 10}, 2000, Ease.quintOut);
+    //   Tween.get(mask).wait(1000).to({alpha: 0.7}, 2400, Ease.quintOut);
+    //   Tween.get(container).wait(1000).call(function() {
+    //     stage.removeChild(container);
+    //     $(window).trigger("showScene_0_over");
+    //   });
+    // }
 
 
   }

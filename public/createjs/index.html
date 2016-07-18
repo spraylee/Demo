@@ -11,6 +11,14 @@
 <section id="page-main" class="page">
   <article>
 
+
+    <a id="refresh"></a>
+    <script>
+      document.getElementById('refresh').ontouchstart = function() {
+        window.location.reload();
+      }
+    </script>
+
     <canvas id="stage"></canvas>
 
   </article>

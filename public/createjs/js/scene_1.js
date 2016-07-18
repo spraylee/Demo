@@ -66,8 +66,9 @@
     // 出现各种快照类型和相应的文字
     function showPicAndText() {
       // 对于的load.js中，对于的图片命名必须为 type0, type1, type2，且个数保持一致
-      var textList = ["学籍照", "体检照", "毕业证照", "英语四级", "居住证", "结婚证"];
-      var picList = textList.map(function(item, index, list) {
+      TEXT.typeList = ["学籍照", "体检照", "毕业证照", "英语四级", "居住证", "结婚证"];
+      TEXT.sizeList = [[23,36], [28,40], [35, 50], [32, 45], [40,60], [42,55]];
+      var picList = TEXT.typeList.map(function(item, index, list) {
         var typePic = new createjs.Bitmap(IMG["type" + index]);
         container.addChild(typePic);
         var bounds = typePic.getBounds();
@@ -75,13 +76,19 @@
         typePic.regY = bounds.height/2;
         typePic.x = W/2;
         typePic.y = H/(list.length) * (list.length - index - 0.5) - H;
-        typePic.scaleX = 0.6;
-        typePic.scaleY = 0.6;
+        typePic.scaleX = 1;
+        typePic.scaleY = 1;
 
         Tween.get(typePic).wait( index * 100)
              .to({y: H/(list.length) * (list.length - index - 0.5)}, 2000, Ease.getPowOut(5))
              .wait((list.length - index) * 30)
-             .to({y: H - H/list.length*0.5, x: W/(list.length) * (index + 0.5), scaleX: 0.4, scaleY: 0.4}, 1200, Ease.cubicInOut);
+             .to({y: H - H/list.length*0.6, x: W/(list.length) * (index + 0.5), scaleX: 0.8, scaleY: 0.8}, 1200, Ease.cubicInOut)
+             .call(nextAnimation);
+        function nextAnimation(argument) {
+          if (index === 0) {   // 最后一个才触发下一个动画，避免多次触发
+            showBottomTypeWord();
+          }
+        }
 
         return typePic;
       });
@@ -90,53 +97,92 @@
     }
 
     // 出现底部的文字
-    function showLeftWord() {
-      var leftWord = new createjs.Text(TEXT.leftWord, "24px Heiti", "blue");
-      container.addChild(leftWord);
-      leftWord.textAlign = "center";
-      leftWord.x = - W;
-      leftWord.y = H * 0.65;
-      Tween.get(leftWord).to({x: W * 0.4, y: H*0.6}, 1000, Ease.getBackIn(8.5));
-      Tween.get(leftWord).wait(300).call(showRightWord);
+    function showBottomTypeWord() {
+      var bottomTypeWordList = TEXT.typeList.map(function(item, index, list) {
+        var length = list.length;
+
+        var word = new createjs.Text(item, "28px Arial", "blue");
+        container.addChild(word);
+        word.textAlign = "center";
+        word.alpha = 0;
+        word.x = (W / length) * (index + 0.5);
+        word.y = H - 45;
+        Tween.get(word).wait(index * 100).to({alpha: 1, y: H - 30}, 800, Ease.quadInOut).call(function() {
+          if (index === 0) {
+          }
+        });
+
+        return word;
+      });
+      showDefaultSizePhoto();
     }
 
-    // 图片排在底部
-    function showRightWord() {
-      var rightWord = new createjs.Text(TEXT.rightWord, "24px Heiti", "blue");
-      container.addChild(rightWord);
-      rightWord.textAlign = "center";
-      rightWord.x = 2*W;
-      rightWord.y = 0.7*H;
-      Tween.get(rightWord).to({x:W * 0.6,y:H*0.68}, 1000, Ease.getBackIn(8.5)).call(moveHand);
-    }
+    // 出现默认大小的图片
+    function showDefaultSizePhoto() {
+      // 将图片及背景色放入一个新的容器中，方面大小调整
+      var photoContainer = new createjs.Container();
+      var photo = new createjs.Bitmap(IMG.photo);
+      var photoBounds = photo.getBounds();
+      var bg_white = new createjs.Graphics().beginFill("#ff0").drawRect(0, 0, photoBounds.width,photoBounds.height);
+      var bgc = new createjs.Shape(bg_white);
+      photoContainer.addChild(bgc);
+      photoContainer.addChild(photo);
+      container.addChild(photoContainer);
 
-    // 出现主图片
-    function moveHand() {
-      var hand = new createjs.Bitmap(IMG.hand);
-      container.addChild(hand);
-      hand.x = W * 1;
-      hand.y = H * 0.8;
-      hand.setTransform(hand.x,hand.y,0.3,0.3);
-      Tween.get(hand).to({x:W*0.5, y:H*0.35}, 1200, Ease.quadInOut).wait(200).call(showMask);
+      var mask = new createjs.Shape(new createjs.Graphics().beginFill("#fff").drawRect(0, 0, photoBounds.width,photoBounds.height));
+      photoContainer.addChild(mask);
+      mask.regX = photoBounds.width/2;
+      mask.regY = photoBounds.height/2;
+      mask.visible = false;
+      mask.x = photoBounds.width/2;
+      mask.y = photoBounds.height/2;
+
+      mask.scaleX = 0.8;
+
+      bgc.mask = mask;
+      photo.mask = mask;
+
+      var photoContainerBounds =  photoContainer.getBounds();
+      photoContainer.regX = photoContainerBounds.width / 2;
+      photoContainer.regY = photoContainerBounds.height / 2;
+      photoContainer.x = W * 0.5;
+      photoContainer.y = H * 0.4;
+      photoContainer.scaleX = 0;
+      photoContainer.scaleY = 0;
+      photoContainer.alpha = 1;
+      Tween.get(photoContainer).to({alpha: 1, scaleX: 0.5, scaleY: 0.5}, 1800, Ease.getElasticOut(1.02, 0.3))
+      .call(chooseTypeAndShowSize);
+
     }
 
     // 手指点击，跳到相应的图片大小
-    function showMask() {
-      var mask = new createjs.Bitmap(IMG.blueCircle);
-      stage.addChild(mask);
-      var bounds = mask.getBounds();
-      mask.regX = bounds.width/2;
-      mask.regY = bounds.height/2;
-      mask.x = W/2;
-      mask.y = H*0.35;
-      mask.scaleX = 0;
-      mask.scaleY = 0;
-      Tween.get(mask).to({scaleX: 10,scaleY: 10}, 2000, Ease.quintOut);
-      Tween.get(mask).wait(1000).to({alpha: 0.7}, 2400, Ease.quintOut);
-      Tween.get(container).wait(1000).call(function() {
-        stage.removeChild(container);
-        $(window).trigger("showScene_0_over");
-      });
+    function chooseTypeAndShowSize() {
+      var currentIndex = 0;
+      var hand = new createjs.Bitmap(IMG.hand);
+      container.addChild(hand);
+      hand.x = W * 0.8;
+      hand.y = H * 1.2;
+      hand.scaleX = 0.3;
+      hand.scaleY = 0.3;
+
+      // 点击第一个，点击第三个， 点击第四个
+      choseType([0, 2, 3]);
+      function choseType(indexList) {
+        var typeLength = TEXT.typeList.length;
+        if (currentIndex < indexList.length) {
+          // 移动手指
+          Tween.get(hand).to({x: (W / typeLength) * (indexList[currentIndex] + 0.5), y: H - H/typeLength*0.6}, 800, Ease.cubicInOut)
+          .call(function() {
+            // 改变尺寸
+            console.dir(container);
+          });
+
+
+        }
+      }
+
+
+
     }
     // 内容隐去，出现不同底色的照片
 

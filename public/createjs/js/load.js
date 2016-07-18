@@ -27,15 +27,18 @@
 
   var imgs = {
     logo: "logo.png",
-    hand: "hand.png",
-    blueCircle: "blueCircle.png",
+    adText: "word.png",
+    line: "line.png",
+    hand: "moveHand.png",
 
-    type0: "type0.png",
-    type1: "type1.png",
-    type2: "type2.png",
-    type3: "type3.png",
-    type4: "type4.png",
-    type5: "type5.png"
+    type0: "credentials_01.png",
+    type1: "credentials_02.png",
+    type2: "credentials_03.png",
+    type3: "credentials_04.png",
+    type4: "credentials_05.png",
+    type5: "credentials_06.png",
+
+    photo: "photo_alpha.png"
 
   }
 
