@@ -1,2 +1,2 @@
 # Demo
-This is the first projiect of me on gethub.
+A server to place all static files. It's easy to adjust code with a direct view on mobile.
