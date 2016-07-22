@@ -1,0 +1,108 @@
+/**
+ * @overview 重庆出入境
+ *
+ * =============================================================================
+ *  重庆出入境
+ * =============================================================================
+ *
+ * @author 李军
+ * @create 2016-7-20
+ *
+ */
+
+
+#page-home article {
+  display: flex;
+  display: -webkit-flex;
+  flex-direction: column;
+  -webkit-flex-direction: column;
+  background-color: #ebebeb;
+}
+#page-home .talk-area {
+  flex-grow: 1;
+  -webkit-flex-grow: 1;
+  text-align: center;
+}
+
+#page-home .talk-time {
+  display: inline-block;
+  margin: 10px auto;
+  padding: 3px 5px;
+  background-color: #ccc;
+  color: white;
+  border-radius: 5px;
+  font-size: 12px;
+}
+#page-home .talk-content {
+  display: flex;
+  display: -webkit-flex;
+  margin-right: 65px;
+}
+#page-home .talk-content .icon-pic {
+  background-image: url(../img/icon.jpg);
+  background-position: center;
+  -webkit-background-size: contain;
+  background-size: contain;
+  background-color: #fff;
+  width: 40px;
+  height: 40px;
+  display: block;
+  margin: 0 10px 0 10px;
+  padding: 0;
+  -webkit-flex: none;
+  flex: none;
+}
+#page-home .talk-content p {
+  -webkit-flex: auto;
+  flex: auto;
+  text-align: left;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 5px;
+  font-size: 16px;
+  position: relative;
+}
+#page-home .talk-content p::before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid white;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  left: -18px;
+  top: 15px;
+}
+#page-home .menu-button {
+  display: flex;
+  display: -webkit-flex;
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+#page-home .menu-button img {
+  display: block;
+  width: 46px;
+  height: 46px;
+  margin: 0;
+}
+#page-home .menu-button .buttons {
+  flex: auto;
+  -webkit-flex: auto;
+  display: flex;
+  -webkit-display: flex;
+}
+#page-home .menu-button .buttons > a {
+  -webkit-flex: auto;
+  flex: auto;
+  text-align: center;
+  font-size: 16px;
+  padding: 15px;
+  color: black;
+  border-left: 1px solid #ccc;
+  background-color: #fff;
+}
+#page-home .menu-button .buttons > a:active {
+  background-color: #ccc;
+}

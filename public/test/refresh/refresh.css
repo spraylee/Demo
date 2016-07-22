@@ -1,0 +1,20 @@
+
+@font-face {
+  font-family: icon;
+  src: url('./refresh.ttf') format('truetype');
+}
+.test-refresh-btn {
+  font-family: icon;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  width: 40px;
+  height: 40px;
+  border: 1px solid black;
+  border-radius: 50%;
+  opacity: 0.1;
+  z-index: 100000000000000000000;
+  text-align: center;
+  line-height: 40px;
+  font-size: 20px;
+}
