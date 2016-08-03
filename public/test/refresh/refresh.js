@@ -9,6 +9,6 @@
   }
   container.appendChild(btn);
   btn.addEventListener("click", function(event) {
-    window.location.reload();
+    window.location.reload(true);
   });
 })();
