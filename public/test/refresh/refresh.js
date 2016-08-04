@@ -4,7 +4,7 @@
   btn.innerHTML = "&#xf021;";  // refresh.ttf中定义的刷新图标样式
   btn.classList.add("test-refresh-btn");
   if (!container) {
-    console.log("Don't find container.");
+    console.log("Don't find test container.");
     return false;
   }
   container.appendChild(btn);

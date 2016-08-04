@@ -9,31 +9,24 @@
   <!-- <link rel="stylesheet" href="./css/cube.css"> -->
   <style>
 
-  body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  input {
-    margin: 20px;
-    width: 150px;
-  }
-  input::before {
-    content: attr(value);
-  }
 
   </style>
 </head>
 <body>
 
-  <input type="time">
-  <input type="color">
-  <input type="range">
-  <input type="date">
+
+  <p id="text"></p>
 
   <script src="./lib/common.js"></script>
   <script>
-
+  window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+  var num = 0;
+  window.requestAnimationFrame(show);
+  function show() {
+    $("#text")[0].innerHTML = num;
+    num ++;
+    window.requestAnimationFrame(show);
+  }
 
   </script>
 </body>

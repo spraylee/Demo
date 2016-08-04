@@ -3,50 +3,82 @@
     <span class="cell" v-for="item in count" :style="cellsStyle[$index]">
       <p class="index">{{ $index }}</p>
     </span>
-    <pre>
+<!--     <pre>
       {{ cells | json }}
-    </pre>
+    </pre> -->
   </div>
 </template>
 
 <script>
 var W = window.innerWidth
 var H = window.innerHeight
+var maxSpeed = 5
 export default {
   data () {
     return {
-      count: 10,
+      count: 200,
       cells: []
     }
   },
   created () {
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < this.count; i++) {
       var size = Math.random() * 20 + 40
       var left = size / 2 + Math.random() * (W - size)
       var top = size / 2 + Math.random() * (H - size)
+      var speedX = Math.random() * 2 * maxSpeed - maxSpeed
+      var speedY = Math.random() * 2 * maxSpeed - maxSpeed
       this.cells.push({
         left,
         top,
-        size
+        size,
+        speedX,
+        speedY
       })
     }
-    window.setTimeout(function () {
-      move(cells)
+    var self = this
+    window.requestAnimationFrame(function animation () {
+      move(self.cells)
+      self.cellsStyle = countStyle(self.cells)
+      window.requestAnimationFrame(animation)
     })
   },
   computed: {
     cellsStyle () {
-      console.log('computed')
-      return this.cells.map(function (item, index) {
-        return {
-          left: item.left + 'px',
-          top: item.top + 'px',
-          width: item.size + 'px',
-          height: item.size + 'px'
-        }
-      })
+      return countStyle(this.cells)
     }
   }
+}
+function move (cells) {
+  cells.forEach(function (item, index) {
+    item.left += item.speedX
+    item.top += item.speedY
+    if (item.left + item.size / 2 >= W) {
+      item.left -= 2 * item.left + item.size - 2 * W
+      item.speedX *= -1
+    }
+    if (item.top + item.size / 2 >= H) {
+      item.top -= 2 * item.top + item.size - 2 * H
+      item.speedY *= -1
+    }
+    if (item.left - item.size / 2 <= 0) {
+      item.left -= 2 * item.left - item.size
+      item.speedX *= -1
+    }
+    if (item.top - item.size / 2 <= 0) {
+      item.top -= 2 * item.top - item.size
+      item.speedY *= -1
+    }
+  })
+}
+function countStyle (cells) {
+  return cells.map(function (item, index) {
+    return {
+      left: item.left + 'px',
+      top: item.top + 'px',
+      width: item.size + 'px',
+      height: item.size + 'px'
+    }
+  })
 }
 </script>
 

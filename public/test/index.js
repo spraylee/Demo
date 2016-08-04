@@ -21,6 +21,9 @@
   jsList.push("refresh/refresh.js");     // 提供刷新按钮
   cssList.push("refresh/refresh.css");
 
+  jsList.push("fps/fps.js");             // 显示FPS
+  cssList.push("fps/fps.css");
+
   var containerId = "test-resource";    // 更改容器ID， 也要同步更改base/base.css中的ID
 
   if (!!window.TEST) {
