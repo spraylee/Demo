@@ -19,14 +19,7 @@
 
   <script src="./lib/common.js"></script>
   <script>
-  window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-  var num = 0;
-  window.requestAnimationFrame(show);
-  function show() {
-    $("#text")[0].innerHTML = num;
-    num ++;
-    window.requestAnimationFrame(show);
-  }
+    text.innerHTML = window.devicePixelRatio;
 
   </script>
 </body>
