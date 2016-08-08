@@ -1,0 +1,19 @@
+{
+  "name": "cooking",
+  "version": "0.0.0",
+  "description": "A vue project.",
+  "private": true,
+  "keywords": [
+  ],
+  "scripts": {
+    "dev": "cooking watch",
+    "dist": "cooking build -p",
+    "deploy": "cooking build --no-color"
+  },
+  "author": "spraylee",
+  "license": "ISC",
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
+}
