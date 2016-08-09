@@ -13,6 +13,7 @@
   "author": "spraylee",
   "license": "ISC",
   "dependencies": {
+    "vue": "^1.0.0"
   },
   "devDependencies": {
   }

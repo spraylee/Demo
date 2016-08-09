@@ -38,7 +38,7 @@ cooking.set({
       chunks: ['vendor']
     }
   ],
-  publicPath: '/dist/',
+  publicPath: './',
   assetsPath: 'static',
   urlLoaderLimit: 10000,
   extractCSS: '[name].[contenthash:7].css',
