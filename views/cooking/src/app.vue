@@ -1,9 +1,25 @@
 <template>
   <canvas id="stage"></canvas>
-  <span>{{ text | json }} <br><input type="range" v-model="density" min="10" max="1000">{{ density }}</span>
+      isShowController: {{isShowController}} <br>
+  <span id="panel">
+    <div v-if="isShowController">
+      <span class="icon icon-close" @click="isShowController = !isShowController"></span>
+      {{ text | json }} <br>
+      Show Circle <input type="checkbox" name="Circle" v-model="isShowCircle"><br>
+      Show Line <input type="checkbox" name="Line" v-model="isShowLine"><br>
+      Move Circle <input type="checkbox" name="Move" v-model="isMoving"><br>
+      Density <input type="range" v-model="density" min="10" max="1000">{{ density }}
+    </div>
+    <div v-if="!isShowController">
+      <span class="icon icon-bars" @click="isShowController = !isShowController"></span>
+    </div>
+  </span>
 </template>
 
 <script>
+  window.onresize = function() {
+    window.location.reload(false);
+  };
   export default {
     name: 'app',
     data() {
@@ -12,7 +28,11 @@
           num: '',
           lines: ''
         },
-        density: 100
+        isShowLine: true,
+        isShowCircle: true,
+        isMoving: true,
+        density: 100,
+        isShowController: true
       };
     },
     ready() {
@@ -21,8 +41,8 @@
       var canvas = document.getElementById('stage');
       var width = window.innerWidth;
       var height = window.innerHeight;
-      // var pixelRatio = window.devicePixelRatio || 1;
-      var pixelRatio = 3 || 1;
+      var pixelRatio = window.devicePixelRatio || 1;
+      // var pixelRatio = 3 || 1;
       var W = width * pixelRatio;
       var H = height * pixelRatio;
       var ctx = canvas.getContext('2d');
@@ -54,6 +74,10 @@
         self.text.num = num;
         cells = changeObj(cells, num);
         // animate();
+      });
+
+      this.$watch('isShowLine', function(val) {
+
       });
 
       function animate() {
@@ -105,6 +129,9 @@
       }
 
       function countPostion() {
+        if (!self.isMoving) {
+          return;
+        }
         cells.forEach(function(item, index) {
           item.x += item.speedX;
           item.y += item.speedY;
@@ -140,6 +167,9 @@
       }
 
       function strokeLine() {
+        if (!self.isShowLine) {
+          return;
+        }
         var line = [];
         for (let i = 0; i < cells.length; i++) {
           for (let j = i + 1; j < cells.length; j++) {
@@ -174,6 +204,9 @@
       }
 
       function renderCircle() {
+        if (!self.isShowCircle) {
+          return;
+        }
         ctx.fillStyle = color;
         cells.forEach(function(item, index, list) {
           ctx.beginPath();
@@ -206,10 +239,24 @@
     z-index: 10;
     background-color: #ccc;
   }
-  span {
+  #panel {
     position: absolute;
     bottom: 20px;
     left: 20px;
     z-index: 100;
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 20px;
+    border-radius: 10px;
   }
+  .icon::before {
+    color: white;
+    font-size: 18px;
+  }
+  .icon-close {
+    float: right;
+  }
+
+
+  @import './assets/fonts/style.css';
 </style>
