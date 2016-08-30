@@ -21,6 +21,9 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
+// SOCKET.IO 自定义的方法，将server传到app.js中使用
+app.socket(server);
+
 /**
  * Listen on provided port, on all network interfaces.
  */

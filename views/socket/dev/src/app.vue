@@ -1,8 +1,10 @@
 <template>
   <div class="main">
     <div class="contanier">
-      <s-wave class="btn" type="checkbox" color='green' active="true" base="red">点击</s-wave>
-      <s-wave class="btn" color="#ccc">按钮</s-wave>
+      <p v-for="value in content">{{value}}</p>
+      <hr>
+      <input type="text" v-model="word">
+      <button @click="submit(word)">submit</button>
     </div>
 
     <span>Designed by Spray Lee</span>
@@ -12,19 +14,31 @@
 
 
 <script>
-  import sWave from './components/wave';
+  import io from 'src/assets/lib/socket.io.js';
+  var socket;
   export default {
     name: 'app',
     components: {
-      sWave
     },
     data() {
       return {
-
+        word: '',
+        content: []
       };
     },
     ready() {
+      socket = io('http://192.168.0.67:3000');
 
+      socket.on('say', content => {
+        this.content.push(content);
+      });
+
+    },
+    methods: {
+      submit(word) {
+        socket.emit('talk', word);
+        this.word = '';
+      }
     }
   };
 </script>
@@ -35,9 +49,9 @@
   }
   div {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    /*flex: 1 0 auto;*/
   }
   html, body {
     position: absolute;
@@ -48,21 +62,10 @@
     margin: 0;
     padding: 0;
   }
-  .contanier {
-    margin-top: 200px;
-  }
 </style>
 
 <style scoped>
-
-  .btn {
-    width: 400px;
-    height: 80px;
-    border-radius: 20px;
-    background-color: pink;
-    font-size: 40px;
-    text-align: center;
-    line-height: 80px;
-    color: white;
-  }
+ .main {
+  flex-direction: column;
+ }
 </style>

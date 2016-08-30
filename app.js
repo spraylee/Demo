@@ -38,6 +38,12 @@ app.use('/', routes);
 app.use('/users', users);
 app.use("/vue", require("./routes/vue"));
 app.use("/cooking", require("./routes/cooking"));
+app.use("/socket", require("./routes/socket"));
+
+// 自定义方法，从www中传递server给router
+app.socket = function(server) {
+  require("./routes/socket").socket(server);
+}
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -69,6 +75,7 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
+
 
 
 module.exports = app;

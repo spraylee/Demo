@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>socket</title>
+  <script src="socket.io.js"></script>
+</head>
+<body>
+<p id="word">wersfdsf</p>
+<button id="button">sdfsd</button>
+
+<script>
+  (function() {
+    var word = document.getElementById('word');
+    var button = document.getElementById('button');
+    var socket = io('http://192.168.0.67:3000');
+    button.onclick = function (event) {
+      socket.emit('talk', word.innerHTML);
+    }
+
+  })();
+</script>
+
+</body>
+</html>
