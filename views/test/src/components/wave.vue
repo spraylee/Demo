@@ -166,6 +166,7 @@ function Waves(DOM, type, color, active, baseColor) {
     position: relative;
     /*width: 400px;*/
     transform: scale(1);
+    display: block;
     cursor: pointer;
   }
   .color {

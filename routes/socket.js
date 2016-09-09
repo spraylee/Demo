@@ -9,18 +9,33 @@ router.get('/', function(req, res, next) {
 
 router.socket = function(server) {
   var io = socket_io.listen(server);
-
+  var count = 0;
   io.on('connection', function(socket) {
-    console.log('connect');
-
+    // console.log('connect');
+    count++;
+    // console.log('当前连接数： ' + count);
 
     var obj = {
-      talk: function(word) {
-        console.log(word);
-        io.emit('say', word);
+      all: function(message) {
+        io.emit('all', message);
+      },
+      me: function(message) {
+        console.log(message);
+        if (message.action && message.action === 'getConnectCounts') {
+          socket.emit('me', {
+            connectCounts: count
+          });
+        } else {
+          socket.emit('me', message);
+        }
+      },
+      other: function(message) {
+        socket.broadcast.emit('other', message)
       },
       disconnect: function(event) {
-        console.log(event);
+        count--;
+        // console.log('disconnect');
+        // console.log('当前连接数： ' + count);
       }
     }
 

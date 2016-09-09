@@ -3,6 +3,7 @@
     <div class="contanier">
       <s-wave class="btn" type="checkbox" color='green' active="true" base="red">点击</s-wave>
       <s-wave class="btn" color="#ccc">按钮</s-wave>
+      <tips v-ref:tips></tips>
     </div>
 
     <span>Designed by Spray Lee</span>
@@ -13,10 +14,11 @@
 
 <script>
   import sWave from './components/wave';
+  import tips from './components/tips';
   export default {
     name: 'app',
     components: {
-      sWave
+      sWave, tips
     },
     data() {
       return {
@@ -24,7 +26,8 @@
       };
     },
     ready() {
-
+      this.$refs.tips.log('success');
+      // this.$tips.log('success');
     }
   };
 </script>

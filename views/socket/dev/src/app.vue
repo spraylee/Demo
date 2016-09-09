@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div class="contanier">
-      <p v-for="value in content">{{value}}</p>
+      <p v-for="value in content" track-by="$index">{{value | json}}</p>
       <hr>
       <input type="text" v-model="word">
       <button @click="submit(word)">submit</button>
@@ -23,21 +23,40 @@
     data() {
       return {
         word: '',
-        content: []
+        content: [],
+        times: [],
+        canSay: true
       };
     },
     ready() {
       socket = io('http://192.168.0.67:3000');
 
-      socket.on('say', content => {
-        this.content.push(content);
+      socket.on('all', content => {
+        this.content.push("all");
+      });
+      socket.on('other', content => {
+        this.content.push("hi");
+        if (this.canSay) {
+          socket.emit('other', 'hi');
+        }
+      });
+      socket.on('me', content => {
+        console.dir(content);
       });
 
     },
     methods: {
       submit(word) {
-        socket.emit('talk', word);
-        this.word = '';
+        // socket.emit('all', {
+        //   word: 'all'
+        // });
+        // socket.emit('me', {
+        //   action: 'getConnectCounts'
+        // });
+        socket.emit('other', 'hi');
+        window.setTimeout(() => {
+          this.canSay = false;
+        }, 10000);
       }
     }
   };
